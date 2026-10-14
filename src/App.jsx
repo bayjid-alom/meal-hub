@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import './App.css'
 import FoodSection from './components/FoodSection/FoodSection'
 import Navbar from './components/Navbar/Navbar'
+import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
 
 
 
@@ -27,6 +28,12 @@ function App() {
       <Suspense fallback={<h4>Loading meals....</h4>}>
         <FoodSection foodDataRes={foodDataRes}></FoodSection>
       </Suspense>
+
+
+
+      <WhyChooseUs></WhyChooseUs>
+
+
 
     </>
   )

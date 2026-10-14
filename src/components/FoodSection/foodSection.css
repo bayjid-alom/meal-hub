@@ -1,10 +1,58 @@
-/* Foods Container  */
+/* Main Food Section */
+.foods-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 30px 50px;
+    box-sizing: border-box;
+}
 
+/* Left Side - Food Container */
 .foods-container {
-  max-width: 80%;
-  margin: 0 auto;
-  /* background-color: bisque; */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+    flex: 3;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* Right Side - Cart */
+.cart-container {
+    flex: 1;
+    min-width: 0;
+    padding: 24px 20px;
+    background-color: bisque;
+    border: 1px solid #f3e5d8;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.cart-container h2 {
+    margin: 0 0 20px;
+    color: #252820;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Responsive - Mobile Only */
+@media (max-width: 576px) {
+    .foods-section {
+        flex-direction: column;
+        gap: 24px;
+        padding: 16px;
+    }
+
+    .foods-container {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .cart-container {
+        width: 100%;
+        padding: 20px 16px;
+    }
 }

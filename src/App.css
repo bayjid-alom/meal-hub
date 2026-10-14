@@ -32,3 +32,21 @@
     font-weight: 400;
     line-height: 1.8;
 }
+
+/* Responsive - Mobile Only */
+@media (max-width: 576px) {
+    .meals-header {
+        margin: 28px 0 22px;
+        padding: 0 16px;
+    }
+
+    .meals-heading {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    }
+
+    .meals-header p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+}
