@@ -1,0 +1,10 @@
+/* Foods Container  */
+
+.foods-container {
+  max-width: 80%;
+  margin: 0 auto;
+  /* background-color: bisque; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}

@@ -1,9 +1,9 @@
 ## Meal Hub
 
-####  List meals by first letter
+####   List meals by first letter
 
 ```
-API : https://themealdb.com/api/json/v1/1/search.php?f=a
+API : "https://themealdb.com/api/json/v1/1/search.php?f=a"
 ```
 
 
@@ -74,6 +74,15 @@ import navImage from "./assets/food.jpg"
 <img src={navImage} alt="Food image!" />
 ```
 
+
+### promise {props} hisebe receive korle seta ke 
+ use().....er vitor rakhle >>> object return korbe {....Array[]}
+```
+const FoodSection = ({ foodDataRes }) => {
+    const data = use(foodDataRes)
+    const foods = data.meals;
+    console.log(foods);
+```
 
 
 

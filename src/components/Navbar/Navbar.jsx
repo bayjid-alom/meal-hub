@@ -1,5 +1,6 @@
 import React from 'react';
 import navImage from "../../assets/food.jpg"
+import "./navbar.css"
 
 const Navbar = () => {
     return (
