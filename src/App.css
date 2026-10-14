@@ -1,0 +1,110 @@
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+
+/* Navbar related Styles */
+
+.header {
+  background: #fffdf8;
+  border-bottom: 1px solid #f0ebe2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-left img {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.nav-left p {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #202820;
+}
+
+.nav-left p span {
+  color: #e87932;
+}
+
+.nav-center {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-center p {
+  margin: 0;
+  color: #555b55;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-center p:hover {
+  color: #e87932;
+}
+
+.nav-right button {
+  background: #e87932;
+  color: #ffffff;
+  border: none;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.nav-right button:hover {
+  background: #cf6120;
+}
+
+
+
+/* Left-to-right underline hover animation */
+.nav-center p {
+  position: relative;
+}
+
+.nav-center p::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #e87932;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-center p:hover::after {
+  transform: scaleX(1);
+}
