@@ -1,8 +1,10 @@
 import { Suspense } from 'react'
 import './App.css'
-import FoodSection from './components/FoodSection/FoodSection'
 import Navbar from './components/Navbar/Navbar'
+import FoodSection from './components/FoodSection/FoodSection'
 import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
+import CustomerReview from './components/CustomerReview/CustomerReview'
+import Footer from './components/Footer/Footer'
 
 
 
@@ -25,7 +27,13 @@ function App() {
       </div>
 
 
-      <Suspense fallback={<h4>Loading meals....</h4>}>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center !py-25">
+            <span className="loading loading-dots loading-xl"></span>
+          </div>
+        }
+      >
         <FoodSection foodDataRes={foodDataRes}></FoodSection>
       </Suspense>
 
@@ -34,6 +42,11 @@ function App() {
       <WhyChooseUs></WhyChooseUs>
 
 
+
+      <CustomerReview></CustomerReview>
+
+
+      <Footer></Footer>
 
     </>
   )

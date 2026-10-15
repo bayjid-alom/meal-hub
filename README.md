@@ -1,5 +1,20 @@
 ## Meal Hub
 
+
+
+#### Section components
+```
+import { Suspense } from 'react'
+import './App.css'
+
+import Navbar from './components/Navbar/Navbar'
+import FoodSection from './components/FoodSection/FoodSection' !!
+import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
+import CustomerReview from './components/CustomerReview/CustomerReview'
+import Footer from './components/Footer/Footer'
+```
+
+
 ####   List meals by first letter
 
 ```
@@ -195,6 +210,21 @@ function App() {
 }
 
 export default App
+```
+
+
+
+### Loading spiinner (fallback)
+```
+<Suspense
+        fallback={
+          <div className="flex justify-center items-center !py-25">
+            <span className="loading loading-dots loading-xl"></span>
+          </div>
+        }
+   >
+    <FoodSection foodDataRes={foodDataRes}></FoodSection>
+</Suspense>
 ```
 
 
