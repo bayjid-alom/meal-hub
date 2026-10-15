@@ -48,8 +48,6 @@ const FoodSection = ({ foodDataRes }) => {
             {/* right side */}
             <div className="cart-container" style={{ width: '25%' }}>
                 <h2>Cart</h2>
-
-
                 <Cart cart={cart}></Cart>
 
                 <button onClick={handleOrder} className='order-btn'>Order</button>
