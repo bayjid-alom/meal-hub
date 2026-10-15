@@ -10,8 +10,7 @@ const Footer = () => {
                 {/* Brand Information */}
                 <div className="footer-brand">
                     <a href="#" className="footer-logo">
-                        <i className="fa-solid fa-utensils"></i>
-                        Meal<span>Hub</span>
+                        <i className="fa-solid fa-utensils"></i>Meal<span>Hub</span>
                     </a>
 
                     <p>
@@ -83,7 +82,7 @@ const Footer = () => {
             {/* Footer Bottom */}
             <div className="footer-bottom">
                 <p>
-                    © {new Date().getFullYear()} Meal Hub.
+                    © {new Date().getFullYear()} MealHub.
                     All rights reserved.
                 </p>
 

@@ -230,6 +230,274 @@ export default App
 
 
 
+<br>
+
+<details>
+<summary>Skeleton Loading</summary>
+
+```
+<Suspense fallback={<SkeletonLoading></SkeletonLoading>}>
+      <FoodSection foodDataRes={foodDataRes}></FoodSection>
+</Suspense>
+```
+
+```
+const SkeletonLoading = () => {
+  return (
+    <div className="!mx-20 mx-auto grid grid-cols-4 gap-6 px-6 py-10">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div
+          key={index}
+          className="flex flex-col gap-4 rounded-xl p-4 shadow"
+        >
+          <div className="skeleton h-48 w-full"></div>
+          <div className="skeleton h-6 w-3/4"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-1/2"></div>
+          <div className="skeleton h-10 w-1/3"></div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+</details>
+
+
+
+## `Working Flow`
+
+1. Load data and display in UI,,,
+then,
+FoodSection.jsx e
+```
+2. const [cart, setCart] = useState([])
+
+er mane holo:
+const cart = []
+```
+[], array , karon multiple value aste pare
+
+create a Cart component
+```
+FoodSection.jsx
+ {/* right side */}
+            <div className="cart-container" style={{ backgroundColor: 'bisque', width: '25%' }}>
+                <h2>Cart</h2>
+                <Cart cart={cart}></Cart>
+            </div>
+```
+
+
+
+```
+Cart.jsx
+const Cart = ({cart}) => {}
+```
+
+
+Think now : when i clicked "add to cart" button then the product will be gone to cart section
+
+cart er value change hobe 
+where is button?
+SingleFood.jsx
+
+###  lifting state up
+ react parent to child flow
+ but
+ here.... child to parent e asbe
+
+
+
+///
+ data zekhane asbe....sekhane ekta function create korte hobe,,
+ zekhan(child) theke data asbe sekhane ei function ta ke props hisebe pathate hobe
+
+ SingleFood.jsx e function ke props hisebe pathabo, cz sekhan theke data asbe
+
+
+ ```
+ FoodSection.jsx
+
+  {/* leftside */}
+            <div style={{ width: '75%' }} className='foods-container'>
+                {
+                    foods.map(food => <SingleFood addToCart={addToCart} food={food}></SingleFood>)
+                }
+  </div>
+
+  ```
+
+
+  received props :
+  const SingleFood = ({ food , addToCart}) => {
+
+
+  then.... ebar zokhon button e onClick hobe function ke call kore dibo and food er data ta ke send kore dib
+
+  Wrong way: called hoye thakbe
+  ```
+   <button onClick={addToCart(food)} className='add-to-cart'> <i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+   ```
+
+   Right way : Wrapper function
+```
+  <button onClick={() => addToCart(food)} className='add-to-cart'> <i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+```
+
+Now : button e click korle foodData hisebe each food er object pacchi
+```
+ const addToCart = (foodData) => {
+        console.log(foodData);
+    }
+```
+
+<details>
+<summary>🛒 Add to Cart — Object Structure</summary>
+
+```json
+{
+  "idMeal": "53262",
+  "strMeal": "Adana kebab",
+  "strMealAlternate": null,
+  "strCategory": "Lamb",
+  "strArea": "Turkish",
+  "strInstructions": "Prepare the lamb mixture with spices, shape it around skewers, and grill until cooked.",
+  "strMealThumb": "https://www.themealdb.com/images/media/meals/04axct1763793018.jpg",
+  "strTags": null,
+  "strYoutube": "https://www.youtube.com/watch?v=Wj7sXu9B_ME",
+  "strIngredient1": "Romano Pepper",
+  "strIngredient2": "Lamb Mince",
+  "strIngredient3": "Red Pepper Paste",
+  "strIngredient4": "Pul Biber",
+  "strIngredient5": "Sunflower Oil",
+  "strIngredient6": "",
+  "strIngredient7": "",
+  "strIngredient8": "",
+  "strIngredient9": "",
+  "strIngredient10": "",
+  "strIngredient11": "",
+  "strIngredient12": "",
+  "strIngredient13": "",
+  "strIngredient14": "",
+  "strIngredient15": "",
+  "strIngredient16": "",
+  "strIngredient17": "",
+  "strIngredient18": "",
+  "strIngredient19": "",
+  "strIngredient20": "",
+  "strMeasure1": "2 large",
+  "strMeasure2": "800g",
+  "strMeasure3": "3 tablespoons",
+  "strMeasure4": "1 tablespoon",
+  "strMeasure5": "3 tablespoons",
+  "strMeasure6": "",
+  "strMeasure7": "",
+  "strMeasure8": "",
+  "strMeasure9": "",
+  "strMeasure10": "",
+  "strMeasure11": "",
+  "strMeasure12": "",
+  "strMeasure13": "",
+  "strMeasure14": "",
+  "strMeasure15": "",
+  "strMeasure16": "",
+  "strMeasure17": "",
+  "strMeasure18": "",
+  "strMeasure19": "",
+  "strMeasure20": "",
+  "strSource": "https://www.bbcgoodfood.com/recipes/adana-kebab",
+  "strImageSource": null,
+  "strCreativeCommonsConfirmed": null,
+  "dateModified": null
+}
+```
+
+
+</details>
+
+<br>
+
+
+
+
+### SetCart
+
+```
+const addToCart = (foodData) => {
+        // cart.push(foodData)   // Not work
+        setCart([...cart, foodData])
+    }
+```
+
+... add to cart e click korle add hocche ekhon..
+
+
+### Order button e click korle cart theke all remove hoye zabe
+```
+const handleOrder = () => {
+    setCart([])
+    alert("Order completed.")
+}
+
+ <button onClick={handleOrder} className='order-btn'>Order</button>
+ ```
+
+
+ ### React toastify (Attractive notification)
+
+Terminal run :
+npm i react-toastify
+
+ ```
+FoodSection.jsx
+import { ToastContainer, toast } from 'react-toastify';
+
+// create a function
+function App(){
+    const notify = () => toast("Wow so easy!");
+}
+
+Just this part : instead of alert
+toast("Wow so easy!");
+
+
+Button er niche : /zekono jaygay
+<button onClick={handleOrder} className='order-btn'>Order</button>
+    <ToastContainer />
+
+More attractive : 
+toast.success("Order completed!");
+toast.error("Something went wrong!");
+toast.warning("Please check your order!");
+toast.info("Your order is being processed!");
+
+```
+
+
+#### https://react-hook-form.com/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

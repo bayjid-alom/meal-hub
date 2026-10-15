@@ -6,3 +6,33 @@
 }
 
 
+
+
+/* Order Button Styles (Cart) */
+
+.order-btn {
+  background: #f59e0b;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-btn:hover {
+  background: #d97706;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.order-btn:active {
+  background: #b45309;
+}
+
+.order-btn:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 3px;
+}
+

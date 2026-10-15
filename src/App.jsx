@@ -27,12 +27,9 @@ function App() {
       </div>
 
 
+
       <Suspense
-        fallback={
-          <div className="flex justify-center items-center !py-25">
-            <span className="loading loading-dots loading-xl"></span>
-          </div>
-        }
+        fallback={<SkeletonLoading></SkeletonLoading>}
       >
         <FoodSection foodDataRes={foodDataRes}></FoodSection>
       </Suspense>
@@ -41,15 +38,39 @@ function App() {
 
       <WhyChooseUs></WhyChooseUs>
 
-
-
       <CustomerReview></CustomerReview>
-
 
       <Footer></Footer>
 
     </>
   )
 }
+
+
+
+
+
+const SkeletonLoading = () => {
+  return (
+    <div className="!mx-20 mx-auto grid grid-cols-4 gap-6 px-6 py-10">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div
+          key={index}
+          className="flex flex-col gap-4 rounded-xl p-4 shadow"
+        >
+          <div className="skeleton h-48 w-full"></div>
+          <div className="skeleton h-6 w-3/4"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-1/2"></div>
+          <div className="skeleton h-10 w-1/3"></div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+
+
+
 
 export default App

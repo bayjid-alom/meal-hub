@@ -1,0 +1,28 @@
+
+.empty-cart {
+  text-align: center;
+  padding: 40px 12px;
+  margin: 10px 0;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  background: #fffaf0;
+}
+
+.empty-cart-icon {
+  font-size: 35px;
+  color: #f59e0b;
+  margin-bottom: 14px;
+}
+
+.empty-cart h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px;
+}
+
+.empty-cart p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}

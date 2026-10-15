@@ -2,8 +2,8 @@ import React from 'react';
 import FoodSection from '../FoodSection/FoodSection';
 import './singleFood.css'
 
-const SingleFood = ({ food }) => {
-    console.log(food);
+const SingleFood = ({ food, addToCart }) => {
+    // console.log(food);   // []
 
     return (
         <div className='food-card'>
@@ -20,7 +20,7 @@ const SingleFood = ({ food }) => {
 
 
             <div className="card-footer">
-                <button className='add-to-cart'> <i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+                <button onClick={() => addToCart(food)} className='add-to-cart'> <i className="fa-solid fa-cart-shopping"></i> Add to Cart</button>
             </div>
         </div>
     );
