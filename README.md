@@ -1,159 +1,317 @@
-## Meal Hub
+## 🍽️ MealHub
+
+**Explore delicious meals, discover your favorites, and order your next meal with ease.**
+
+**Live Demo:** https://mealhub-foodzone.surge.sh/
+<!-- **Live Demo:** https://mealhub-tastify.netlify.app/ -->
 
 
 
-#### Section components
-```
-import { Suspense } from 'react'
-import './App.css'
-
-import Navbar from './components/Navbar/Navbar'
-import FoodSection from './components/FoodSection/FoodSection' !!
-import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
-import CustomerReview from './components/CustomerReview/CustomerReview'
-import Footer from './components/Footer/Footer'
-```
-
-
-####   List meals by first letter
+#### 📁 Project Structure
 
 ```
-API : "https://themealdb.com/api/json/v1/1/search.php?f=a"
+
+meal-hub/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.jsx
+│   │   │   └── Navbar.css
+│   │   ├── FoodSection/
+│   │   │   ├── FoodSection.jsx
+│   │   │   └── foodSection.css
+│   │   ├── SingleFood/
+│   │   │   ├── SingleFood.jsx
+│   │   │   └── singleFood.css
+│   │   ├── Cart/
+│   │   │   ├── Cart.jsx
+│   │   │   └── cart.css
+│   │   ├── WhyChooseUs/
+│   │   │   ├── WhyChooseUs.jsx
+│   │   │   └── whyChooseUs.css
+│   │   ├── CustomerReview/
+│   │   │   ├── CustomerReview.jsx
+│   │   │   └── CustomerReview.css
+│   │   └── Footer/
+│   │       ├── Footer.jsx
+│   │       └── footer.css
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+└── vite.config.js
 ```
 
-
-
-Problem : Can't Direct deploy react project
-Solution :  You have to build first.
-npm run build >>>
-dist [Folder cole asbe]
-
-
-```
-Not work. Not update in UI...console e show hocche:
-
-  let number = 0;
-  const changeNumber = () => {
-    number = 6;
-    console.log(number)  
-  }
-
-
-   <button onClick={changeNumber}>Click Me</button>
-```
+<br>
 
 
 
-```
-const [number, setNumber] = useState(0)
-Here:
-number >> variable
-setNumber >> function
-  
+
+
+## || `MealHub` — React Learning `Notes`
+
+
+
+#### 🔎 1. Fetch Meals by First Letter
+
+TheMealDB API ব্যবহার করে meal-এর নামের প্রথম অক্ষর অনুযায়ী meals fetch করা যায়।
+
+**API Endpoint:**
+
+```text
+https://themealdb.com/api/json/v1/1/search.php?f=a
 ```
 
+এখানে `f=a` মানে meal-এর নাম `a` অক্ষর দিয়ে শুরু হয়েছে এমন meals search করা।
 
+---
+
+#### 🚀 2. Deploy a React Project
+
+#### Problem: Can't Directly Deploy a React Project
+
+React project সরাসরি deploy করার পরিবর্তে production build তৈরি করতে হয়।
+
+**Solution:**
+
+Terminal-এ নিচের command run করো:
+
+```bash
+npm run build
 ```
-Worked :
+
+Build সফল হলে project-এর root directory-তে `dist` folder তৈরি হবে।
+
+এই `dist` folder-এর production-ready files hosting platform-এ deploy করতে হয়। Hosting platform অনুযায়ী deployment process আলাদা হতে পারে।
+
+---
+
+### 🔄 3. Why Normal Variables Don't Update the UI
+
+### Problem: Variable Change হচ্ছে, কিন্তু UI Update হচ্ছে না
+
+```jsx
+let number = 0;
+
+const changeNumber = () => {
+  number = 6;
+  console.log(number);
+};
+
+<button onClick={changeNumber}>Click Me</button>
+```
+
+**কেন UI update হয় না?**
+
+- `number` একটি normal JavaScript variable।
+- এর value change হলেও React নিজে থেকে component re-render করে না।
+- `console.log(number)` updated value দেখাবে, কিন্তু UI automatically update হবে না।
+
+### Solution: Use `useState()`
+
+```jsx
+const [number, setNumber] = useState(0);
+```
+
+এখানে:
+
+- `number` → Current state value।
+- `setNumber` → State update করার function।
+- `useState(0)` → Initial state value `0` নির্ধারণ করে।
+
+### Working Example
+
+```jsx
+import { useState } from 'react';
 
 function App() {
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState(0);
 
   const changeNumber = () => {
     const newNumber = number + 5;
-    setNumber(newNumber)
-  }
+    setNumber(newNumber);
+  };
 
   return (
     <>
       <h2>Number - {number}</h2>
       <button onClick={changeNumber}>Click Me</button>
     </>
-  )
+  );
 }
+
+export default App;
 ```
 
+**Output:** Button-এ click করলে number `0 → 5 → 10 → 15` এভাবে বাড়বে এবং UI update হবে।
 
-#### Initial Setup niye asar jonno 
-rsc >>> Enter
+---
 
-### Auto Import a Components Path
-<ComponentName   >>> Enter
 
-### Problem : Image not show
+
+
+#### ⚡ 4. React Component Shortcuts in VS Code
+
+### Create a Component Quickly
+
+VS Code-এ `rsc` লিখে `Enter` চাপলে configured snippet extension-এর মাধ্যমে React component তৈরি করা যায়।
+
+> Note: `rsc` snippet কাজ করার জন্য উপযুক্ত React snippet extension installed থাকতে হবে।
+
+### Auto Import a Component
+
+অন্য file থেকে component ব্যবহার করতে component name লিখে VS Code-এর IntelliSense suggestion থেকে `Enter` চাপলে অনেক ক্ষেত্রে import statement automatically add করা যায়।
+
+Example:
+
+```jsx
+<ComponentName />
+```
+
+---
+
+### 🖼️ 5. Import Images in React
+
+#### Problem: Image `Not` Showing
+
+```jsx
 <img src="./assets/food.jpg" alt="Food image!" />
-
-To fix :
 ```
-import navImage from "./assets/food.jpg"
+
+React project-এ `src` directory-এর image এভাবে reference করলে build-এর সময় image path resolve না-ও হতে পারে।
+
+### Solution: Import the Image
+
+```jsx
+import navImage from './assets/food.jpg';
+
 <img src={navImage} alt="Food image!" />
 ```
 
+এখানে image-টি import করার ফলে bundler image file-টি resolve করে production build-এ সঠিকভাবে include করতে পারে।
 
-### promise {props} hisebe receive korle seta ke 
- use().....er vitor rakhle >>> object return korbe {....Array[]}
-```
+---
+
+#### 📦 6. Receive a Promise Through Props Using `use()`
+
+React-এর `use()` API দিয়ে একটি Promise resolve করে তার fulfilled value পাওয়া যায়।
+
+Example:
+
+```jsx
 const FoodSection = ({ foodDataRes }) => {
-    const data = use(foodDataRes)
-    const foods = data.meals;
-    console.log(foods);
+  const data = use(foodDataRes);
+  const foods = data.meals;
+
+  console.log(foods);
+};
 ```
 
+এখানে:
 
+- `foodDataRes` → Props-এর মাধ্যমে receive করা Promise।
+- `use(foodDataRes)` → Promise resolve হলে তার result return করে।
+- `data` → API response object।
+- `data.meals` → Meals-এর array।
 
+### API Response Structure
 
-#### Use one component another files
+```js
+{
+  meals: [
+    {
+      idMeal: "52772",
+      strMeal: "Teriyaki Chicken Casserole"
+    }
+  ]
+}
 ```
-App.jsx ||
 
-import { useState } from 'react'
-import './App.css'
-import Home from './Home'
+এটি response structure-এর একটি simplified example।
+
+### Important Notes
+
+- Promise pending থাকলে React-এর `Suspense` দিয়ে loading fallback দেখানো যায়।
+- Promise reject হলে error handling প্রয়োজন।
+- `use()` ব্যবহার করা component-কে উপযুক্ত Suspense boundary-এর মধ্যে রাখা উচিত।
+
+---
+
+### 🔗 7. Pass Data from One Component to Another
+
+React-এ **Props** ব্যবহার করে parent component থেকে child component-এ data পাঠানো যায়।
+
+#### App.jsx — Parent Component
+
+```jsx
+import { useState } from 'react';
+import './App.css';
+import Home from './Home';
 
 function App() {
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState(0);
 
   const changeNumber = () => {
     const newNumber = number + 5;
-    setNumber(newNumber)
-  }
+    setNumber(newNumber);
+  };
 
   return (
     <>
       <h3>From App.jsx - {number}</h3>
+
       <Home number={number}></Home>
 
       <button onClick={changeNumber}>Click Me</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+```
 
+#### Home.jsx — Child Component
 
-
-Home.jsx ||
-
+```jsx
 import React from 'react';
 
 const Home = ({ number }) => {
-    return (
-        <div>
-            <h3>From Home.jsx - {number}</h3>
-        </div>
-    );
+  return (
+    <div>
+      <h3>From Home.jsx - {number}</h3>
+    </div>
+  );
 };
 
 export default Home;
 ```
 
+### How It Works
 
+1. `App.jsx`-এ `number` state তৈরি করা হয়েছে।
+2. `number={number}` দিয়ে state-এর value `Home` component-এ পাঠানো হয়েছে।
+3. `Home.jsx`-এ `{ number }` দিয়ে props receive করা হয়েছে।
+4. `setNumber()` call হলে `App` re-render হয় এবং নতুন value `Home`-এও update হয়।
 
-### Multiple button e color dite chaile
-```
-App.css
+**Remember:** Props দিয়ে parent থেকে child component-এ data পাঠানো যায়।
 
-.add-btn{
+---
+
+#### 🎨 8. Apply Different Colors to Multiple Buttons
+
+একই CSS class ব্যবহার করে সব button-এর common style রাখা যায়। আর `style` prop দিয়ে প্রতিটি button-এর আলাদা color দেওয়া যায়।
+
+### App.css
+
+```css
+.add-btn {
   color: white;
   background-color: black;
   padding: 7px 20px;
@@ -161,87 +319,166 @@ App.css
 }
 ```
 
-```
+#### JSX Example
+
+```jsx
 <>
-      <button className='add-btn'>Add Now</button>
-      <button style={{backgroundColor: 'gray'}} className='add-btn'>Add Now</button>
-      <button className='add-btn'>Add Now</button>
-      <button className='add-btn'>Add Now</button>
-    </>
+  <button className="add-btn">Add Now</button>
+
+  <button
+    style={{ backgroundColor: 'gray' }}
+    className="add-btn"
+  >
+    Add Now
+  </button>
+
+  <button className="add-btn">Add Now</button>
+
+  <button className="add-btn">Add Now</button>
+</>
 ```
 
-### Easy way is :
-```
-Button.jsx ||
+এখানে সব button-এর common style `.add-btn` class থেকে আসবে। দ্বিতীয় button-এর background color inline style-এর কারণে gray হবে।
 
+---
+
+### 🧩 9. Create a Reusable Button Component Using Props
+
+একই ধরনের button বারবার না লিখে একটি reusable component তৈরি করা যায়। Props ব্যবহার করে প্রতিটি button-এর text ও background color পরিবর্তন করা যায়।
+
+### Button.jsx
+
+```jsx
 import React from 'react';
 
-// এখানে চাইলে আরও props receive করতে পারি । যেমনঃ (textColor)
+// Props ব্যবহার করে button-এর text ও background color পরিবর্তন করা যায়।
 const Button = ({ bgColor, text }) => {
-    return (
-        <div>
-            <button style={{ backgroundColor: bgColor }} className='add-btn'>{text}</button>
-        </div>
-    );
+  return (
+    <div>
+      <button
+        style={{ backgroundColor: bgColor }}
+        className="add-btn"
+      >
+        {text}
+      </button>
+    </div>
+  );
 };
 
 export default Button;
 ```
 
+### App.jsx
 
-
-```
-App.jsx ||
-
-import './App.css'
-import Button from './components/Button/Button'
+```jsx
+import './App.css';
+import Button from './components/Button/Button';
 
 function App() {
-
   return (
     <>
       <h2>Button From App.jsx</h2>
-      <Button bgColor={'black'} text={'Add Now'}></Button>
-      <Button bgColor={'navy'} text={'Learn More'}></Button>
-      <Button bgColor={'green'} text={'Read Now'}></Button>
-    // এখান থেকে চাইলে আরও props send করতে পারি । যেমনঃ (textColor={'bisque'})
+
+      <Button bgColor="black" text="Add Now" />
+      <Button bgColor="navy" text="Learn More" />
+      <Button bgColor="green" text="Read Now" />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
+### How It Works
+
+- `bgColor` → Button-এর background color নির্ধারণ করে।
+- `text` → Button-এর ভিতরের text নির্ধারণ করে।
+- একই `Button` component একাধিকবার ব্যবহার করা যায়।
+- Props পরিবর্তন করে নতুন component তৈরি না করেই ভিন্ন button দেখানো যায়।
+
+**Note:** `Button.jsx`-এ `.add-btn` class ব্যবহার করা হয়েছে। তাই `App.css` বা অন্য কোনো imported CSS file-এ class-টি define থাকতে হবে।
+
+---
+
+#### 📝 Quick Revision
+
+| Topic | What I Learned |
+|---|---|
+| TheMealDB API | First letter দিয়ে meals search করা |
+| `npm run build` | React project-এর production build তৈরি করা |
+| `useState()` | State update করে UI re-render করা |
+| VS Code snippets | দ্রুত React component তৈরি করা |
+| Image import | React project-এ local image ব্যবহার করা |
+| `use()` | Promise resolve করে data পাওয়া |
+| Props | Parent থেকে child component-এ data পাঠানো |
+| CSS classes | Common button styles তৈরি করা |
+| Reusable components | একই component বিভিন্ন props দিয়ে ব্যবহার করা |
+
+---
+
+> **Learning Quote:** Progress is built through consistency, one line of code at a time.
 
 
-### Loading spiinner (fallback)
-```
+
+
+
+
+
+
+
+
+
+### ⏳ 10. Loading UI with Suspense
+
+React-এর `Suspense` ব্যবহার করে API থেকে data load হওয়ার সময় একটি fallback UI দেখানো যায়। MealHub project-এ loading indicator হিসেবে Spinner অথবা Skeleton Loading ব্যবহার করা যায়।
+
+#### 🔄 Loading Spinner (Fallback)
+
+Simple loading animation দেখানোর জন্য DaisyUI-এর loading component ব্যবহার করা হয়েছে।
+
+```jsx
 <Suspense
-        fallback={
-          <div className="flex justify-center items-center !py-25">
-            <span className="loading loading-dots loading-xl"></span>
-          </div>
-        }
-   >
-    <FoodSection foodDataRes={foodDataRes}></FoodSection>
+  fallback={
+    <div className="flex justify-center items-center !py-25">
+      <span className="loading loading-dots loading-xl"></span>
+    </div>
+  }
+>
+  <FoodSection foodDataRes={foodDataRes}></FoodSection>
 </Suspense>
 ```
 
+**How It Works:**
 
+- `Suspense` Promise resolve হওয়া পর্যন্ত fallback UI দেখাতে পারে।
+- `fallback`-এর মধ্যে DaisyUI loading dots ব্যবহার করা হয়েছে।
+- Data load হয়ে গেলে `FoodSection` component render হবে।
 
-
+---
 <br>
 
-<details>
-<summary>Skeleton Loading</summary>
 
-```
-<Suspense fallback={<SkeletonLoading></SkeletonLoading>}>
-      <FoodSection foodDataRes={foodDataRes}></FoodSection>
+
+
+
+
+
+<details>
+<summary>💀 Skeleton Loading</summary>
+
+Spinner-এর পরিবর্তে খাবারের card-এর মতো placeholder দেখাতে Skeleton Loading ব্যবহার করা যায়। এতে content load হওয়ার আগেই সম্ভাব্য layout বোঝা যায়।
+
+#### Usage in App.jsx
+
+```jsx
+<Suspense fallback={<SkeletonLoading />}>
+  <FoodSection foodDataRes={foodDataRes}></FoodSection>
 </Suspense>
 ```
 
-```
+#### SkeletonLoading.jsx
+
+```jsx
 const SkeletonLoading = () => {
   return (
     <div className="!mx-20 mx-auto grid grid-cols-4 gap-6 px-6 py-10">
@@ -260,98 +497,154 @@ const SkeletonLoading = () => {
     </div>
   );
 };
+
+export default SkeletonLoading;
 ```
+
+#### How It Works
+
+- `Array.from({ length: 6 })` দিয়ে ছয়টি placeholder তৈরি করা হয়।
+- `.map()` ব্যবহার করে প্রতিটি skeleton card render করা হয়।
+- DaisyUI-এর `skeleton` class loading placeholder-এর animation ও appearance দেয়।
+- Actual meals load হলে skeleton-এর পরিবর্তে `FoodSection` render হয়।
 
 </details>
 
-
-
-## `Working Flow`
-
-1. Load data and display in UI,,,
-then,
-FoodSection.jsx e
-```
-2. const [cart, setCart] = useState([])
-
-er mane holo:
-const cart = []
-```
-[], array , karon multiple value aste pare
-
-create a Cart component
-```
-FoodSection.jsx
- {/* right side */}
-            <div className="cart-container" style={{ backgroundColor: 'bisque', width: '25%' }}>
-                <h2>Cart</h2>
-                <Cart cart={cart}></Cart>
-            </div>
-```
+<br>
 
 
 
-```
-Cart.jsx
-const Cart = ({cart}) => {}
+
+
+
+
+
+
+## || Working `Flow`
+
+
+
+### 1. Load Data and Display in UI
+
+First, load meals data from the API and display it in the UI.
+
+### 2. Create Cart State — `FoodSection.jsx`
+
+```jsx
+const [cart, setCart] = useState([]);
 ```
 
+এর মানে হলো:
 
-Think now : when i clicked "add to cart" button then the product will be gone to cart section
+- `cart` → Current cart data
+- `setCart` → Cart update করার function
+- `[]` → Empty array, কারণ cart-এ multiple food items থাকতে পারে।
 
-cart er value change hobe 
-where is button?
-SingleFood.jsx
+### 3. Create a Cart Component
 
-###  lifting state up
- react parent to child flow
- but
- here.... child to parent e asbe
+**FoodSection.jsx**
 
-
-
-///
- data zekhane asbe....sekhane ekta function create korte hobe,,
- zekhan(child) theke data asbe sekhane ei function ta ke props hisebe pathate hobe
-
- SingleFood.jsx e function ke props hisebe pathabo, cz sekhan theke data asbe
-
-
- ```
- FoodSection.jsx
-
-  {/* leftside */}
-            <div style={{ width: '75%' }} className='foods-container'>
-                {
-                    foods.map(food => <SingleFood addToCart={addToCart} food={food}></SingleFood>)
-                }
-  </div>
-
-  ```
-
-
-  received props :
-  const SingleFood = ({ food , addToCart}) => {
-
-
-  then.... ebar zokhon button e onClick hobe function ke call kore dibo and food er data ta ke send kore dib
-
-  Wrong way: called hoye thakbe
-  ```
-   <button onClick={addToCart(food)} className='add-to-cart'> <i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-   ```
-
-   Right way : Wrapper function
-```
-  <button onClick={() => addToCart(food)} className='add-to-cart'> <i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+```jsx
+{/* Right Side */}
+<div className="cart-container" style={{ backgroundColor: 'bisque', width: '25%' }}>
+  <h2>Cart</h2>
+  <Cart cart={cart}></Cart>
+</div>
 ```
 
-Now : button e click korle foodData hisebe each food er object pacchi
+**Cart.jsx**
+
+```jsx
+const Cart = ({ cart }) => {};
 ```
- const addToCart = (foodData) => {
-        console.log(foodData);
-    }
+
+এখানে `cart` props-এর মাধ্যমে Cart component-এ data পাঠানো হচ্ছে।
+
+### 4. Think: Add to Cart
+
+এখন চিন্তা করো, **Add to Cart** button-এ click করলে product কীভাবে Cart section-এ যাবে?
+
+Button কোথায় আছে?
+
+`SingleFood.jsx`
+
+### 5. Lifting State Up
+
+React-এ সাধারণত data parent থেকে child component-এ যায়। কিন্তু এখানে child component থেকে parent-এর state update করতে হবে।
+
+যেখানে data manage করা হচ্ছে, সেখানে একটি function create করতে হবে। তারপর child component-এ সেই function-কে props হিসেবে পাঠাতে হবে।
+
+### 6. Pass Function Through Props
+
+**FoodSection.jsx**
+
+```jsx
+{/* Left Side */}
+<div style={{ width: '75%' }} className="foods-container">
+  {foods.map(food => (
+    <SingleFood
+      key={food.idMeal}
+      addToCart={addToCart}
+      food={food}
+    />
+  ))}
+</div>
 ```
+
+**SingleFood.jsx — Receive Props**
+
+```jsx
+const SingleFood = ({ food, addToCart }) => {
+```
+
+### 7. Call Function on Button Click
+
+এখন button-এ click হলে function call করে সেই food-এর data পাঠিয়ে দেব।
+
+**❌ Wrong Way — Function is called immediately**
+
+```jsx
+<button onClick={addToCart(food)} className="add-to-cart">
+  <i className="fa-solid fa-cart-shopping"></i> Add to Cart
+</button>
+```
+
+**✅ Right Way — Wrapper Function**
+
+```jsx
+<button onClick={() => addToCart(food)} className="add-to-cart">
+  <i className="fa-solid fa-cart-shopping"></i> Add to Cart
+</button>
+```
+
+### 8. Receive Food Data
+
+এখন button-এ click করলে প্রতিটি food-এর object `foodData` হিসেবে পাওয়া যাবে।
+
+**FoodSection.jsx**
+
+```jsx
+const addToCart = (foodData) => {
+  console.log(foodData);
+};
+```
+
+### 9. Update Cart State
+
+```jsx
+const addToCart = (foodData) => {
+  setCart([...cart, foodData]);
+};
+```
+
+এখন button-এ click করলে food-এর data `cart` array-তে যোগ হবে এবং Cart section-এ পাঠানো যাবে।
+
+
+
+
+
+
+<br>
 
 <details>
 <summary>🛒 Add to Cart — Object Structure</summary>
@@ -422,101 +715,162 @@ Now : button e click korle foodData hisebe each food er object pacchi
 
 
 
-### SetCart
+### 🛒 SetCart — Add to Cart
 
-```
+```jsx
 const addToCart = (foodData) => {
-        // cart.push(foodData)   // Not work
-        setCart([...cart, foodData])
-    }
+  // cart.push(foodData)   // Not work
+  setCart([...cart, foodData]);
+};
 ```
 
-... add to cart e click korle add hocche ekhon..
+এখন **Add to Cart** button-এ click করলে food item cart-এ যোগ হবে।
 
+### 🗑️ Order Button — Clear Cart
 
-### Order button e click korle cart theke all remove hoye zabe
-```
+Order button-এ click করলে cart-এর সব item remove হয়ে যাবে।
+
+```jsx
 const handleOrder = () => {
-    setCart([])
-    alert("Order completed.")
-}
+  setCart([]);
+  alert("Order completed.");
+};
 
- <button onClick={handleOrder} className='order-btn'>Order</button>
- ```
+<button onClick={handleOrder} className="order-btn">
+  Order
+</button>
+```
 
+---
 
- ### React toastify (Attractive notification)
+### 🔔 React Toastify — Attractive Notifications
 
-Terminal run :
+React Toastify ব্যবহার করে সুন্দর notification দেখানো যায়।
+
+**Install in Terminal:**
+
+```bash
 npm i react-toastify
+```
 
- ```
-FoodSection.jsx
+**FoodSection.jsx — Import**
+
+```jsx
 import { ToastContainer, toast } from 'react-toastify';
+```
 
-// create a function
-function App(){
-    const notify = () => toast("Wow so easy!");
+**Create a Notification Function**
+
+```jsx
+function App() {
+  const notify = () => toast("Wow so easy!");
 }
+```
 
-Just this part : instead of alert
+শুধু `alert()`-এর পরিবর্তে ব্যবহার করা যায়:
+
+```jsx
 toast("Wow so easy!");
+```
 
+**Add ToastContainer**
 
-Button er niche : /zekono jaygay
-<button onClick={handleOrder} className='order-btn'>Order</button>
-    <ToastContainer />
+Button-এর নিচে বা component-এর যেকোনো উপযুক্ত জায়গায় রাখতে পারো।
 
-More attractive : 
+```jsx
+<button onClick={handleOrder} className="order-btn">
+  Order
+</button>
+
+<ToastContainer />
+```
+
+**Different Types of Notifications**
+
+```jsx
 toast.success("Order completed!");
 toast.error("Something went wrong!");
 toast.warning("Please check your order!");
 toast.info("Your order is being processed!");
-
 ```
 
+---
 
-#### https://react-hook-form.com/
+#### 📝 React Hook Form
 
+Form handling শেখার জন্য documentation:
 
-
-
-
-
-
-
+**Website:** https://react-hook-form.com/
+<br>
 
 
 
 
 
 
+### 🚀 Deploy to Surge.sh
+
+<details>
+<summary>|| Custom Domain Configuration in Surge.sh</summary>
+
+<br>
+
+1. Install Surge on your computer.
+
+   `npm install -g surge`
+
+2. Build your project.
+
+   `npm run build`
+
+3. Deploy your project using the `dist` folder.
+
+   `surge dist your-project-name.surge.sh`
+
+4. If asked, log in to your Surge account.
+
+5. After deployment, open the website link shown in the terminal.
+
+**Note:** Replace `your-project-name` with your preferred domain name.
+
+
+
+#### 🌐 CNAME File
+
+#### 📌 What is a CNAME File?
+A `CNAME` file is used to specify a custom domain for a website hosted on platforms like GitHub Pages.
+
+#### 📁 Project Structure
+
+    my-project/
+    ├── public/
+    │   └── CNAME
+    ├── src/
+    ├── package.json
+    └── vite.config.js
 
 
 
 
+#### 📝 CNAME File Content
 
+    surge dist mealhub-foodzone.surge.sh
 
+#### ⚙️ How It Works
+1. Create a `CNAME` file inside the `public` folder.
+2. Write your custom domain inside the file.
+3. Build and deploy your project.
+4. GitHub Pages can use the file to identify your custom domain.
 
+#### ⚠️ Important Notes
+- The `CNAME` file is mainly used with GitHub Pages for custom domains.
+- You must configure the domain's DNS settings correctly.
+- The `CNAME` file alone does not connect a domain to your website.
+- For Surge.sh, you can specify the domain directly in the deployment command.
 
+    surge dist mealhub-foodzone.surge.sh
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</details>
 
 
 
@@ -705,11 +1059,13 @@ Press `Ctrl + C` in the terminal.
 
 
 
+
 ## 👨‍💻 Author
 
 **Bayjid Alom**
 
-> Progress is built through consistency, one line of code at a time.
+> Every project is a new step forward, every line of code brings me closer to my goals.
+
 
 
 
